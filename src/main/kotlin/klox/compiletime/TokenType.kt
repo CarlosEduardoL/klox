@@ -1,3 +1,5 @@
+package klox.compiletime
+
 enum class TokenType {
     // Single-character tokens.
     LEFT_PAREN,

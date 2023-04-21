@@ -1,4 +1,7 @@
-import TokenType.*
+package klox.compiletime
+
+import error
+import klox.compiletime.TokenType.*
 
 private val keywords = mapOf(
     Pair("and", AND),
@@ -18,6 +21,7 @@ private val keywords = mapOf(
     Pair("var", VAR),
     Pair("while", WHILE)
 )
+
 
 class Scanner(private val source: String) {
 

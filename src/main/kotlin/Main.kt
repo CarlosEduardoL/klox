@@ -1,3 +1,6 @@
+import klox.compiletime.*
+import klox.runtime.RuntimeError
+import klox.runtime.interpret
 import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.system.exitProcess
@@ -6,6 +9,7 @@ var hadRuntimeError = false
 var hadError = false
 
 fun main(args: Array<String>) {
+    val args = arrayOf("lox_scripts/super.lox")
     if (args.size > 1){
         System.err.println("Usage: klox [script]")
         exitProcess(64)
@@ -18,7 +22,6 @@ fun main(args: Array<String>) {
 
 fun runFile(script: String) {
     val content = Files.readString(Path.of(script))
-    println(content)
     run(content)
     if (hadError) exitProcess(65)
     if (hadRuntimeError) System.exit(70);
@@ -38,7 +41,8 @@ fun run(source: String) {
     val tokens = scanner.scanTokens()
     val parser = Parser(tokens)
     val statements = parser.parse()
-
+    resolve(statements)
+    
     if (hadError) return
     interpret(statements)
 }
